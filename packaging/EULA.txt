@@ -1,0 +1,9 @@
+END USER LICENSE AGREEMENT (EULA)
+
+The source code of fusion360-football is licensed under the MIT License; see
+the LICENSE file distributed alongside this one for the full terms.
+
+For an Autodesk App Store submission you can either present this MIT license as
+the app's EULA, or opt in to Autodesk's standard App Store EULA during the
+submission process. Adjust this file to match whichever you choose before
+submitting.
