@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Autodesk App Store package descriptor for the fusion360-football add-in.
+
+  This is a TEMPLATE. packaging/build_bundle.py copies it into the built
+  .bundle and replaces {{VERSION4}} with the release version (four-part,
+  e.g. 0.1.0.0). Fill in the TODO author/contact fields before submitting
+  to the Autodesk App Store. The UpgradeCode GUID identifies this app for
+  upgrades and must stay the same across all future versions -- do not change
+  it once published.
+-->
+<ApplicationPackage SchemaVersion="1.0"
+	ProductType="Application"
+	AutodeskProduct="Fusion360"
+	Name="fusion360-football"
+	Description="Generates a parametric football (soccer ball) as 32 printable truncated-icosahedron panels"
+	AppVersion="{{VERSION4}}"
+	Author="John J. Aponte"
+	AppNameSpace="com.autodesk.exchange.Fusion360.fusion360football"
+	HelpFile="./Contents/docs/Help.html"
+	ProductCode="*"
+	UpgradeCode="{6801FA24-3C51-405A-AD37-E95CA5E1B193}" >
+
+	<CompanyDetails Name="John J. Aponte"
+		Phone=" "
+		Url="https://github.com/johnaponte/fusion360-football"
+		Email="TODO-your-contact-email@example.com" />
+
+	<RuntimeRequirements SupportPath="./Contents/docs" OS="win64|mac" Platform="Fusion360" SeriesMin="" />
+
+	<Components>
+		<RuntimeRequirements SupportPath="./Contents/docs" OS="win64|mac" Platform="Fusion360" SeriesMin="" />
+		<ComponentEntry AppName="fusion360-football" Version="{{VERSION4}}"
+			ModuleName="./Contents/fusion360-football.manifest"
+			AppDescription="Generates a parametric football (soccer ball) as 32 printable truncated-icosahedron panels" />
+	</Components>
+
+</ApplicationPackage>

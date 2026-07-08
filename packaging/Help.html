@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fusion360-football &mdash; Help</title>
+    <style>
+      body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+             max-width: 760px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #222; }
+      h1 { font-size: 1.6rem; } h2 { font-size: 1.2rem; margin-top: 1.6rem; }
+      table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+      th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; vertical-align: top; }
+      th { background: #f4f4f4; }
+      code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; }
+    </style>
+  </head>
+  <body>
+    <h1>fusion360-football</h1>
+    <p>Generates a parametric football (soccer ball) as a truncated icosahedron:
+      12 pentagon panels and 20 hexagon panels, each created as its own
+      independent, 3D-printable solid body.</p>
+
+    <h2>Running the command</h2>
+    <ol>
+      <li>Open or create a design in Autodesk Fusion.</li>
+      <li>On the <strong>Solid</strong> tab, in the <strong>Scripts and Add-Ins</strong>
+        panel, click the <strong>Football</strong> button.</li>
+      <li>Set the parameters below and click <strong>OK</strong>. The 32 panels are
+        created in the active design, named <code>Pentagon_01</code>&hellip;<code>Pentagon_12</code>
+        and <code>Hexagon_01</code>&hellip;<code>Hexagon_20</code>.</li>
+    </ol>
+
+    <h2>Parameters</h2>
+    <table>
+      <tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+      <tr><td>Hexagon side</td><td>44 mm</td>
+        <td>Edge length of the truncated icosahedron. Every edge (pentagon and
+          hexagon) has this length.</td></tr>
+      <tr><td>Face deep</td><td>5 mm</td>
+        <td>Panel thickness, measured at the edges.</td></tr>
+      <tr><td>Print tolerance (gap)</td><td>0 mm</td>
+        <td>Total clearance left between adjacent panels for 3D printing.
+          0 = panels touch exactly; around 0.1&nbsp;mm is a typical real-world fit.</td></tr>
+      <tr><td>External face</td><td>Flat</td>
+        <td><strong>Flat</strong> keeps each panel's outer face planar (a faceted
+          ball). <strong>Rounded</strong> carves the outer face with the ball's
+          circumsphere so the surface reads as smoothly round.</td></tr>
+      <tr><td>Pentagon color</td><td>0, 0, 0 (black)</td>
+        <td>RGB (0&ndash;255) applied to the pentagon bodies.</td></tr>
+      <tr><td>Hexagon color</td><td>255, 255, 255 (white)</td>
+        <td>RGB (0&ndash;255) applied to the hexagon bodies.</td></tr>
+    </table>
+
+    <h2>Notes for 3D printing</h2>
+    <ul>
+      <li>Each panel is a separate solid body, so you can export each one to STL
+        individually.</li>
+      <li>The mitered side faces are cut at each edge's true dihedral angle
+        (138.19&deg; where a hexagon meets a hexagon, 142.62&deg; where it meets a
+        pentagon), so the printed pieces assemble flush.</li>
+      <li>Use the <strong>Print tolerance</strong> parameter to introduce a small
+        gap so the pieces fit together after printing.</li>
+    </ul>
+
+    <p>Project page:
+      <a href="https://github.com/johnaponte/fusion360-football">github.com/johnaponte/fusion360-football</a></p>
+  </body>
+</html>

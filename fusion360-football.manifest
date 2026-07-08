@@ -1,0 +1,12 @@
+{
+    "autodeskProduct": "Fusion",
+    "type": "addin",
+    "author": "John J. Aponte",
+    "description": {
+        "": "Generates a parametric football (soccer ball) as 32 printable truncated-icosahedron panels, sized and colored from a dialog."
+    },
+    "version": "0.1.0",
+    "runOnStartup": false,
+    "supportedOS": "windows|mac",
+    "editEnabled": true
+}

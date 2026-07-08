@@ -1,0 +1,42 @@
+name: Build release bundle
+
+# When you publish a GitHub Release (from a tag like v0.1.0), this builds the
+# installable bundle zip and attaches it to that release as a downloadable
+# asset. Nothing is uploaded to the Autodesk App Store -- that step stays
+# manual until you choose to submit.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write   # needed to upload the asset to the release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Derive version from the release tag
+        id: version
+        run: |
+          # Release tag looks like "v0.1.0"; strip the leading "v".
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Verify geometry (no Fusion needed)
+        run: python3 tests/test_icosahedron_geometry.py
+
+      - name: Build the bundle and zip
+        run: python3 packaging/build_bundle.py --version "${{ steps.version.outputs.version }}"
+
+      - name: Attach the zip to the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "$GITHUB_REF_NAME" dist/fusion360-football-*.zip --clobber
