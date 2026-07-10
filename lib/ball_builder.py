@@ -61,10 +61,16 @@ def build_football(design, hexagon_side_cm, face_deep_cm, rounded,
     ball_radius_cm = geo.circumradius(vertices)
 
     # Each run gets its own component so multiple balls can coexist in one
-    # design, cleanly organized in the browser and timeline.
-    occurrence = root_comp.occurrences.addNewComponent(adsk.core.Matrix3D.create())
-    ball_comp = occurrence.component
-    ball_comp.name = _unique_component_name(root_comp, "Football")
+    # assembly, cleanly organized in the browser and timeline. "Part" design
+    # documents only allow a single component; there addNewComponent raises,
+    # so we fall back to building directly in the root component.
+    ball_comp = root_comp
+    try:
+        occurrence = root_comp.occurrences.addNewComponent(adsk.core.Matrix3D.create())
+        ball_comp = occurrence.component
+        ball_comp.name = _unique_component_name(root_comp, "Football")
+    except RuntimeError:
+        ball_comp = root_comp
 
     base_feature = None
     if design.designType == adsk.fusion.DesignTypes.ParametricDesignType:

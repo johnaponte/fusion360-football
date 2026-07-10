@@ -29,8 +29,17 @@ a frustum-like shape:
   those that meet pentagons (142.62°) are mitered at their own correct angles.
 - With a non-zero **print tolerance**, each mitered side face is inset by half
   the tolerance, leaving that much total clearance between neighboring panels.
-- Pentagons and hexagons each get their own color appearance applied
-  directly to the bodies.
+- Pentagons and hexagons each get their own solid color appearance (built from
+  a matte plastic base so the chosen RGB shows accurately) applied to the bodies.
+
+### Where the bodies are placed
+
+- In an **Assembly** document, each run creates its own component named
+  `Football` (then `Football (2)`, `Football (3)`, ...), so you can keep several
+  balls in one design, cleanly organized in the browser and timeline.
+- In a **Part** document (which Fusion limits to a single component), the bodies
+  are created directly in the root component instead. Everything still works;
+  you just don't get a separate component per run.
 
 ## Dialog parameters
 
@@ -59,8 +68,8 @@ a frustum-like shape:
    - **Windows:** `%APPDATA%\Autodesk\ApplicationPlugins\`
 
    You should end up with `.../ApplicationPlugins/fusion360-football.bundle/`.
-3. Restart Fusion. A **Football** button appears in the Solid tab's Scripts &
-   Add-Ins panel. Click it, set the parameters, and click OK.
+3. Restart Fusion. A **Football** button appears in the Solid tab's **Create**
+   menu. Click it, set the parameters, and click OK.
 
 ### For development — link the source folder
 

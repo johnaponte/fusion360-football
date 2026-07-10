@@ -1,3 +1,4 @@
+import os
 import traceback
 
 import adsk
@@ -20,6 +21,9 @@ IS_PROMOTED = True
 WORKSPACE_ID = 'FusionSolidEnvironment'
 # Live in the Solid > Create menu, alongside the other solid-creation tools.
 PANEL_ID = 'SolidCreatePanel'
+
+# Folder with the command's button icons (16x16.png, 32x32.png, 64x64.png).
+ICON_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resources', '')
 
 # Command input IDs.
 ID_HEXAGON_SIDE = 'hexagonSide'
@@ -44,7 +48,7 @@ local_handlers = []
 
 
 def start():
-    cmd_def = ui.commandDefinitions.addButtonDefinition(CMD_ID, CMD_NAME, CMD_Description)
+    cmd_def = ui.commandDefinitions.addButtonDefinition(CMD_ID, CMD_NAME, CMD_Description, ICON_FOLDER)
 
     futil.add_handler(cmd_def.commandCreated, command_created)
 
