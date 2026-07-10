@@ -18,8 +18,8 @@ CMD_Description = 'Builds a football (truncated icosahedron) as 32 printable pen
 IS_PROMOTED = True
 
 WORKSPACE_ID = 'FusionSolidEnvironment'
-PANEL_ID = 'SolidScriptsAddinsPanel'
-COMMAND_BESIDE_ID = 'ScriptsManagerCommand'
+# Live in the Solid > Create menu, alongside the other solid-creation tools.
+PANEL_ID = 'SolidCreatePanel'
 
 # Command input IDs.
 ID_HEXAGON_SIDE = 'hexagonSide'
@@ -50,7 +50,7 @@ def start():
 
     workspace = ui.workspaces.itemById(WORKSPACE_ID)
     panel = workspace.toolbarPanels.itemById(PANEL_ID)
-    control = panel.controls.addCommand(cmd_def, COMMAND_BESIDE_ID, False)
+    control = panel.controls.addCommand(cmd_def)
     control.isPromoted = IS_PROMOTED
 
 
