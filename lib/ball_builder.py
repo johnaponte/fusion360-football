@@ -60,9 +60,21 @@ def build_football(design, hexagon_side_cm, face_deep_cm, rounded,
     adjacency = geo.build_adjacency(faces)
     ball_radius_cm = geo.circumradius(vertices)
 
+    # Each run gets its own component so multiple balls can coexist in one
+    # assembly, cleanly organized in the browser and timeline. "Part" design
+    # documents only allow a single component; there addNewComponent raises,
+    # so we fall back to building directly in the root component.
+    ball_comp = root_comp
+    try:
+        occurrence = root_comp.occurrences.addNewComponent(adsk.core.Matrix3D.create())
+        ball_comp = occurrence.component
+        ball_comp.name = _unique_component_name(root_comp, "Football")
+    except RuntimeError:
+        ball_comp = root_comp
+
     base_feature = None
     if design.designType == adsk.fusion.DesignTypes.ParametricDesignType:
-        base_feature = root_comp.features.baseFeatures.add()
+        base_feature = ball_comp.features.baseFeatures.add()
         base_feature.startEdit()
 
     try:
@@ -82,9 +94,9 @@ def build_football(design, hexagon_side_cm, face_deep_cm, rounded,
                 tolerance_cm)
 
             if base_feature is not None:
-                body = root_comp.bRepBodies.add(temp_body, base_feature)
+                body = ball_comp.bRepBodies.add(temp_body, base_feature)
             else:
-                body = root_comp.bRepBodies.add(temp_body)
+                body = ball_comp.bRepBodies.add(temp_body)
 
             if face.kind == "pentagon":
                 pentagon_count += 1
@@ -106,6 +118,20 @@ def build_football(design, hexagon_side_cm, face_deep_cm, rounded,
             base_feature.finishEdit()
 
     return created_bodies
+
+
+def _unique_component_name(root_comp, base):
+    """A component name like 'Football', 'Football (2)', ... that isn't already
+    used by another occurrence in the root component."""
+    existing = set()
+    for i in range(root_comp.occurrences.count):
+        existing.add(root_comp.occurrences.item(i).component.name)
+    if base not in existing:
+        return base
+    n = 2
+    while "%s (%d)" % (base, n) in existing:
+        n += 1
+    return "%s (%d)" % (base, n)
 
 
 def _build_panel_body(face, edge_adjacency, face_deep_cm, rounded, ball_radius_cm,

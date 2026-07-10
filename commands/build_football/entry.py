@@ -1,3 +1,4 @@
+import os
 import traceback
 
 import adsk
@@ -18,8 +19,11 @@ CMD_Description = 'Builds a football (truncated icosahedron) as 32 printable pen
 IS_PROMOTED = True
 
 WORKSPACE_ID = 'FusionSolidEnvironment'
-PANEL_ID = 'SolidScriptsAddinsPanel'
-COMMAND_BESIDE_ID = 'ScriptsManagerCommand'
+# Live in the Solid > Create menu, alongside the other solid-creation tools.
+PANEL_ID = 'SolidCreatePanel'
+
+# Folder with the command's button icons (16x16.png, 32x32.png, 64x64.png).
+ICON_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resources', '')
 
 # Command input IDs.
 ID_HEXAGON_SIDE = 'hexagonSide'
@@ -44,13 +48,13 @@ local_handlers = []
 
 
 def start():
-    cmd_def = ui.commandDefinitions.addButtonDefinition(CMD_ID, CMD_NAME, CMD_Description)
+    cmd_def = ui.commandDefinitions.addButtonDefinition(CMD_ID, CMD_NAME, CMD_Description, ICON_FOLDER)
 
     futil.add_handler(cmd_def.commandCreated, command_created)
 
     workspace = ui.workspaces.itemById(WORKSPACE_ID)
     panel = workspace.toolbarPanels.itemById(PANEL_ID)
-    control = panel.controls.addCommand(cmd_def, COMMAND_BESIDE_ID, False)
+    control = panel.controls.addCommand(cmd_def)
     control.isPromoted = IS_PROMOTED
 
 

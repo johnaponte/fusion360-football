@@ -7,3 +7,6 @@ Memory.md
 
 # Build output
 dist/
+
+# Local MCP server config (Fusion connector)
+.mcp.json
